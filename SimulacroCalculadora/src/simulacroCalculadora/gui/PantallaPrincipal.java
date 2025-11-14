@@ -226,7 +226,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      */
     private void inicializarTabla() {
         // Inicio dtm
-        dtm = new DefaultTableModel();
+        dtm = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int column) {
+                // Columna 3 (índice 3, la cuarta columna: "Resultado")
+                if (column == 3) {
+                    return Double.class; // Indica que los datos en esta columna son Double
+                }
+                // Para las otras columnas, mantiene el tipo Object (String por defecto)
+                return Object.class;
+            }
+        };
+
         String[] titulos = new String[]{"Operación", "Num 1", "Num 2", "Resultado"};
         dtm.setColumnIdentifiers(titulos);
         jTableOperaciones.setModel(dtm);
