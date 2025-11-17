@@ -307,7 +307,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         } else if (operacionBorrar.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No has introducido nada", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            String resultadoBorrar = JOptionPane.showInputDialog(this, "Introduce el resultado de la operación", "Operación a eliminar", JOptionPane.QUESTION_MESSAGE);
+            eliminarOperacionDeseada(operacionBorrar);
+        }
+    }
+
+    private void eliminarOperacionDeseada(String operacionBorrar) {
+        String resultadoBorrar = JOptionPane.showInputDialog(this, "Introduce el resultado de la operación", "Operación a eliminar", JOptionPane.QUESTION_MESSAGE);
+        try {
             double resultado = Double.parseDouble(resultadoBorrar);
 
             Operacion operacion = LogicaOperaciones.getListaOperaciones().stream()
@@ -328,6 +334,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 }
 
             }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ERROR. Introduce un número válido en resultado", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
